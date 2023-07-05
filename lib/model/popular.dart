@@ -3,5 +3,10 @@ class Popular {
   String text;
   String kcal;
   String min;
-  Popular(this.img, this.text, this.kcal, this.min);
+  Popular({
+    required this.img,
+    required this.text,
+    required this.kcal,
+    required this.min,
+  });
 }
