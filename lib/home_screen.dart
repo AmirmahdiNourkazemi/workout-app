@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:workuot_application/model/plan.dart';
 import 'package:workuot_application/popular_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -141,15 +142,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     feature[itemIndex].text,
                   ),
                   options: CarouselOptions(
-                    enableInfiniteScroll: true,
-                    height: 174.0,
-                    initialPage: 0,
-                    viewportFraction: 0.7,
-                    aspectRatio: 16 / 10,
-                    //autoPlay: true,
-                    autoPlayCurve: Curves.slowMiddle,
-                    pageSnapping: true,
-                  ),
+                      enableInfiniteScroll: true,
+                      height: 174.0,
+                      initialPage: 0,
+                      viewportFraction: 0.7,
+                      aspectRatio: 16 / 10,
+                      autoPlay: true,
+                      autoPlayCurve: Curves.ease,
+                      pageSnapping: true,
+                      autoPlayAnimationDuration: Duration(milliseconds: 200)),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(left: 21, top: 21, bottom: 16),
@@ -163,20 +164,32 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                ListView.builder(
-                  itemCount: todayPlan.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: TodayPlan(
-                        index,
-                        todayPlan[index].Explane,
-                        todayPlan[index].Percentage,
-                        todayPlan[index].Text,
-                      ),
-                    );
-                  },
-                  shrinkWrap: true,
+                AnimationLimiter(
+                  child: ListView.builder(
+                    itemCount: todayPlan.length,
+                    itemBuilder: (context, index) {
+                      return AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(milliseconds: 700),
+                        child: SlideAnimation(
+                          curve: Curves.decelerate,
+                          verticalOffset: 100.0,
+                          child: FadeInAnimation(
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 20),
+                              child: TodayPlan(
+                                index,
+                                todayPlan[index].Explane,
+                                todayPlan[index].Percentage,
+                                todayPlan[index].Text,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    shrinkWrap: true,
+                  ),
                 ),
               ],
             ),

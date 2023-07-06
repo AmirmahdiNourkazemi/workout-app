@@ -40,7 +40,7 @@ class TodayPlan extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "pushing up",
+                        this.text,
                         style: TextStyle(
                           color: Color(0xFF192126),
                           fontSize: 16,
@@ -85,7 +85,7 @@ class TodayPlan extends StatelessWidget {
                     height: 4,
                   ),
                   Text(
-                    '100 Push up a day',
+                    this.explane,
                     style: TextStyle(
                       color: Color(0x7F192126),
                       fontSize: 13,
@@ -99,7 +99,7 @@ class TodayPlan extends StatelessWidget {
                   SizedBox(
                     width: 180,
                     child: FAProgressBar(
-                      currentValue: 45,
+                      currentValue: this.precent.toDouble(),
                       backgroundColor: const Color(0xff192126),
                       progressColor: const Color(0xff71C8FF),
                       size: 16,
